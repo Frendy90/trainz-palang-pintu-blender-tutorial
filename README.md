@@ -1,51 +1,62 @@
-# Palang Pintu Perlintasan Trainz Simulator 2009
+# Palang Pintu Perlintasan untuk Trainz Simulator 2009
 
-Dokumentasi dan contoh alur kerja untuk membuat addon palang pintu perlintasan yang dapat dianimasikan di Blender dan digunakan di Trainz Simulator 2009.
+Repositori ini berisi panduan, template, dan contoh logika untuk membuat addon palang pintu perlintasan di Trainz Simulator 2009, mulai dari pemodelan di Blender, ekspor mesh dan animasi, hingga kontrol otomatis dengan script.
 
-> **Status:** dokumentasi dan template awal. File Blender, mesh hasil ekspor, KUID, serta API script harus disesuaikan dengan toolchain Trainz yang Anda gunakan.
+## Tujuan proyek
 
-## Isi repositori
+Tujuan utama repositori ini adalah memberi panduan praktis untuk membangun addon palang pintu perlintasan yang memiliki:
 
-- [`tutorial-blender.md`](tutorial-blender.md) — tutorial dari pemodelan hingga pengujian.
-- [`examples/palang-controller.gs`](examples/palang-controller.gs) — pseudocode/kerangka logika kontrol; bukan jaminan API final untuk semua build TS2009.
-- [`examples/config.txt`](examples/config.txt) — contoh konfigurasi asset yang harus disesuaikan.
-- [`LICENSE`](LICENSE) — lisensi dokumentasi dan contoh.
+- palang membuka/menutup otomatis;
+- sensor deteksi kereta;
+- lampu peringatan;
+- alarm suara;
+- state machine yang aman dan tidak membuka palang terlalu cepat.
 
-## Yang diperlukan
+## Struktur repositori
 
-1. Blender versi yang kompatibel dengan exporter Trainz yang dipilih.
-2. Exporter Trainz untuk menghasilkan format yang diterima TS2009, biasanya `.im` untuk mesh dan format animasi yang ditentukan exporter.
-3. Content Creator Plus (CCP) atau Content Manager versi yang sesuai dengan TS2009.
-4. Trainz Simulator 2009 untuk pengujian di Surveyor/Driver.
-5. Editor teks yang tidak mengubah tab atau encoding secara tidak sengaja.
+- `README.md` — ringkasan project dan panduan cepat.
+- `tutorial-blender.md` — tutorial lengkap pemodelan dan animasi Blender.
+- `docs/trainz-addon-architecture.md` — arsitektur asset, state machine, dan struktur addon Trainz.
+- `examples/config.txt` — template konfigurasi asset Trainz.
+- `examples/palang-controller.gs` — contoh logika kontrol dalam bentuk script kerangka.
+- `LICENSE` — lisensi MIT.
 
-**Penting:** Jangan menganggap exporter Blender modern, format animasi, atau fungsi TrainzScript dari Trainz versi baru kompatibel dengan TS2009. Selalu gunakan versi exporter yang memang mendukung Trainz-build 2.9 dan ikuti dokumentasinya.
+## Alur pembangunan rekomendasi
 
-## Alur singkat
+1. Buat model palang di Blender.
+2. Atur origin/engsel di titik yang benar.
+3. Buat animasi `open` dan `close`.
+4. Ekspor mesh dan animasi yang kompatibel dengan TS2009.
+5. Buat file konfigurasi look-up asset.
+6. Uji mesh dan animasi di Trainz.
+7. Tambahkan trigger/sensor.
+8. Tambahkan lampu dan alarm.
+9. Hubungkan semua event ke state machine.
+10. Uji pengoperasian nyata di Surveyor.
 
-```text
-Model → atur pivot engsel → animasikan → ekspor dengan exporter Trainz
-      → buat config.txt → impor/rebuild di Content Manager
-      → uji di Surveyor → baru tambahkan kontrol sensor/script
-```
+## File penting
 
-## Prinsip desain
+- `tutorial-blender.md` — panduan model + animasi di Blender
+- `docs/trainz-addon-architecture.md` — desain sistem palang pintu dan logika kontrol
+- `examples/config.txt` — template `config.txt` untuk asset Trainz
+- `examples/palang-controller.gs` — kerangka script controller
 
-- Pisahkan mesh statis dan bagian bergerak bila exporter atau asset type memerlukannya.
-- Letakkan origin/pivot palang tepat di engsel; jangan mengandalkan titik tengah objek.
-- Buat animasi `open` dan `close` sesuai metode yang didukung exporter, bukan berdasarkan nama file semata.
-- Gunakan nama file dan nama objek tanpa spasi untuk mengurangi masalah saat ekspor.
-- Uji animasi sebagai asset sederhana terlebih dahulu sebelum menambahkan sensor kereta, lampu, dan suara.
-- Ganti semua KUID contoh dengan KUID milik Anda sendiri.
+## Catatan penting
 
-## Urutan implementasi yang disarankan
+- Dokumentasi ini dibuat dengan pendekatan kerja nyata untuk Trainz Simulator 2009, bukan untuk versi baru yang menggunakan API berbeda.
+- API TrainzScript, format animasi, dan struktur exporter dapat berbeda sesuai build, exporter, dan plugin yang Anda gunakan.
+- Pastikan KUID, nama file, path, dan tag konfigurasi sesuai dengan setup lokal Anda.
+- Uji asset di salinan proyek sebelum dipublikasikan atau dibagikan.
 
-1. Buat palang statis dan pastikan mesh tampil di Trainz.
-2. Tambahkan animasi dan pastikan palang dapat dibuka/ditutup tanpa script.
-3. Tambahkan lampu dan suara.
-4. Tambahkan trigger/sensor.
-5. Tambahkan script kontrol setelah semua komponen individual berhasil.
+## Next steps
+
+Rekomendasi lanjutan:
+
+- membuat file asset engine lengkap untuk palang kiri dan kanan;
+- menambahkan nama mesh, script, dan texture yang konsisten;
+- mengimplementasikan sensor jarak/trackside lebih detail;
+- menyiapkan template untuk lampu kedip, alarm, dan model truk/kereta.
 
 ## Lisensi
 
-Dokumentasi dan contoh dalam repositori ini dirilis di bawah MIT License. Asset pihak ketiga, exporter, dan material harus mengikuti lisensinya masing-masing.
+Repositori ini dilisensikan di bawah MIT License.
