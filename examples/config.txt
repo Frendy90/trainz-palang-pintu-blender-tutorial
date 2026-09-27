@@ -1,0 +1,31 @@
+# Contoh konfigurasi asset
+
+Template ini **bukan konfigurasi final**. Sesuaikan nama file, tag, dan entri animasi dengan exporter yang digunakan untuk Trainz Simulator 2009.
+
+```text
+kuid                    <KUID2:123456:10001:1>
+username                "Palang Pintu Perlintasan - Contoh"
+kind                    "scenery"
+trainz-build            2.9
+category-class          "BC"
+category-region         "ID"
+category-era            "2000s"
+author                  "Frendy90"
+description             "Template palang pintu beranimasi."
+
+mesh-table
+{
+    default
+    {
+        mesh            "palang.im"
+        auto-create     1
+    }
+}
+```
+
+## Catatan
+
+- Ganti KUID dengan KUID yang ditetapkan untuk Anda.
+- `palang.im` hanyalah nama contoh; gunakan nama hasil ekspor.
+- Struktur animasi berbeda menurut exporter. Jangan menambahkan `animation-table` sebelum memastikan sintaks tersebut didukung oleh TS2009 dan exporter Anda.
+- Tambahkan `script` dan `class` hanya setelah script benar-benar kompatibel dan berhasil dikompilasi.
